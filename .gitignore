@@ -1,0 +1,21 @@
+# Miljöspecifika filer
+.env
+
+# Python-cache och kompilationsfiler
+__pycache__/
+*.py[cod]
+*$py.class
+
+# UV och pip-beroenden
+uv.lock
+boardgamenights.egg-info/
+
+# Python-versionsfil (om du använder pyenv)
+.python-version
+
+# Eventuella IDE-specifika filer (t.ex. VS Code)
+.vscode/
+.idea/
+
+
+boardgamenights-firebase-adminsdk-fbsvc-701662694d.json
