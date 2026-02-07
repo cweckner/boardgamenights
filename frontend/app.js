@@ -11,6 +11,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
+const baseUrl = "https://boardgamenights.onrender.com"
+
 
 // Logga in med Google
 document.getElementById('loginButton').addEventListener('click', () => {
@@ -37,7 +39,7 @@ document.getElementById('logoutButton').addEventListener('click', () => {
 
 
 async function fetchSessions() {
-    const response = await fetch('http://localhost:5000/sessions');
+    const response = await fetch(`${baseUrl}/sessions`);
     const sessions = await response.json();
 
     console.log("Aktiva spelkvällar: ", sessions)
@@ -64,7 +66,7 @@ document.querySelectorAll('.vote-button').forEach(button => {
 });
 
 async function voteOnSession(sessionId) {
-  const response = await fetch(`http://localhost:5000/session/${sessionId}/vote`, {
+  const response = await fetch(`${baseUrl}/session/${sessionId}/vote`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ userId: 'christian', timeVotes: ['friday_18'], gameUpvotes: ['catan'] })
