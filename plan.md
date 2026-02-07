@@ -7,7 +7,7 @@
 
 
 ## Användarflöde
-1. En spelare startar en pre-session med:
+1. En spelare lägger fram en proposition med:
  - Förslag på datum, och eventuellt tider
  - Förslag på spel (öppet eller stängt för tillägg)
  - Om spelaren kan vara värd
