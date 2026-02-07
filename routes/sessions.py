@@ -30,3 +30,28 @@ def get_session(session_id):
         return jsonify(doc.to_dict())
     else:
         return jsonify({"status": "error", "message": "Session not found"}), 404
+
+@sessions_bp.route("/session/<session_id>/vote", methods=["POST"])
+def vote(session_id):
+    data = request.json
+    session_ref = db.collection("sessions").document(session_id)
+
+    # Uppdatera tidsomröstning
+    for time_id in data["timeVotes"]:
+        session_ref.update({
+            f"timeOptions": firebase_admin.firestore.ArrayUnion({
+                "id": time_id,
+                "votes": firebase_admin.firestore.ArrayUnion(data["userId"])
+            })
+        })
+
+    # Uppdatera spelomröstning
+    for game_id in data["gameUpvotes"]:
+        session_ref.update({
+            f"gameOptions": firebase_admin.firestore.ArrayUnion({
+                "id": game_id,
+                "upvotes": firebase_admin.firestore.ArrayUnion(data["userId"])
+            })
+        })
+
+    return jsonify({"status": "success"})
