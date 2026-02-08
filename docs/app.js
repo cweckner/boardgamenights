@@ -1,18 +1,17 @@
 
 
-
-async function loadConfig() {
-  const response = await fetch('./config.json');
-  const config = await response.json();
-  return config;
+async function fetchConfig() {
+  try {
+    const response = await fetch('https://boardgamenights.onrender.com/config');
+    const config = await response.json();
+    firebase.initializeApp(config);
+    console.log("Firebase har initierats!");
+  } catch (error) {
+    console.error("Kunde inte ladda konfigurationen:", error);
+  }
 }
 
-async function initializeFirebase() {
-  const config = await loadConfig();
-  firebase.initializeApp(config);
-}
-
-initializeFirebase();
+fetchConfig();
 
 // Initiera Firebase
 
