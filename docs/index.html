@@ -1,100 +1,19 @@
 <!DOCTYPE html>
 <html lang="sv">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boardgame Nights</title>
+    <title>Logga in - BoardGameNights</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="app.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase Auth SDK -->
-    <!-- Firebase SDK (compat version) -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-
 </head>
-
-
 <body>
-    <header>
-        <h1>Boardgame Nights</h1>
-        <button id="loginButton" class="button">Logga in med Google</button>
-    </header>
-
-    <main>
-        <!-- Skapa ny spelkväll -->
-        <section id="createSection">
-            <h2>Skapa ny spelkväll</h2>
-            <form id="createForm">
-                <label for="title">Titel:</label>
-                <input type="text" id="title" name="title" required>
-
-                <label>Föreslagna tider:</label>
-                <div class="time-options">
-                    <label><input type="checkbox" name="time" value="friday_18"> Fredag 18:00</label>
-                    <label><input type="checkbox" name="time" value="saturday_14"> Lördag 14:00</label>
-                    <label><input type="checkbox" name="time" value="sunday_16"> Söndag 16:00</label>
-                </div>
-
-                <label>Föreslagna spel:</label>
-                <ul id="gameList">
-                    <li>
-                        <span>Catan</span>
-                        <div class="vote-buttons">
-                            <button type="button" class="upvote">👍</button>
-                            <button type="button" class="downvote">👎</button>
-                        </div>
-                    </li>
-                    <li>
-                        <span>Ticket to Ride</span>
-                        <div class="vote-buttons">
-                            <button type="button" class="upvote">👍</button>
-                            <button type="button" class="downvote">👎</button>
-                        </div>
-                    </li>
-                </ul>
-
-                <button type="submit" class="button">Skapa spelkväll</button>
-            </form>
-        </section>
-
-        <!-- Aktiva spelkvällar -->
-        <section id="activeSessions">
-            <h2>Aktiva spelkvällar</h2>
-            <div id="sessionsContainer">
-                <!-- Dynamiskt innehåll här -->
-            </div>
-        </section>
-    </main>
-
-      <!-- Ditt skript -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9lr9VuVXHpDJrD-8Fr8lYn-Wna_tXSNA",
-      authDomain: "boardgamenights.firebaseapp.com",
-      projectId: "boardgamenights",
-      storageBucket: "boardgamenights.firebasestorage.app",
-      messagingSenderId: "214995919688",
-      appId: "1:214995919688:web:60ca82253a0112a22cc97d"
-    };
-
-    // Initiera Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    // Logga in med Google
-    document.getElementById('loginButton').addEventListener('click', () => {
-      auth.signInWithPopup(provider)
-        .then((result) => {
-          console.log("Inloggad som:", result.user.displayName);
-          alert(`Välkommen, ${result.user.displayName}!`);
-        })
-        .catch((error) => {
-          console.error("Fel vid inloggning:", error);
-          alert("Inloggningen misslyckades. Försök igen.");
-        });
-    });
-  </script>
+    <div class="login-container">
+        <h1>Välkommen till BrÄdSpelsKompisar</h1>
+        <h1>Droppa in med knappen nedan</h1>
+        <button id="loginButton">Logga in med Google</button>
+    </div>
 </body>
-
 </html>

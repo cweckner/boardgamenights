@@ -2,8 +2,31 @@
 from flask import Blueprint, request, jsonify
 from config.firebase import db
 from datetime import datetime
+import firebase_admin
 
 sessions_bp = Blueprint('sessions', __name__)
+
+
+@sessions_bp.route('/sessions')
+def get_sessions():
+    # Hämta och validera JWT-token
+    auth_header = request.headers.get('Authorization')
+    if not auth_header or not auth_header.startswith('Bearer '):
+        return jsonify({"error": "Authorization header missing"}), 401
+
+    id_token = auth_header.split('Bearer ')[1]
+    try:
+        decoded_token = firebase_admin.auth.verify_id_token(id_token)
+        uid = decoded_token['uid']
+
+        # Hämta spelkvällar från Firestore
+        sessions_ref = db.collection('sessions')
+        sessions = [doc.to_dict() for doc in sessions_ref.stream()]
+
+        return jsonify(sessions)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
+
 
 @sessions_bp.route("/create_session", methods=["POST"])
 def create_session():
