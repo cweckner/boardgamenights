@@ -1,8 +1,8 @@
 let firebaseConfig;
 let auth;
 let provider;
-//const baseUrl = "https://boardgamenights.onrender.com";
-const baseUrl = "http://localhost:5000";
+const baseUrl = "https://boardgamenights.onrender.com";
+//const baseUrl = "http://localhost:5000";
 
 
 // Ladda Firebase-konfigurationen
