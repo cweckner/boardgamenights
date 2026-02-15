@@ -2,8 +2,7 @@ let firebaseConfig;
 let auth;
 let provider;
 const baseUrl = "https://boardgamenights.onrender.com";
-//const baseUrl = "http://localhost:5000";
-
+// const baseUrl = "localhost:8000"
 
 // Ladda Firebase-konfigurationen
 async function fetchConfig() {
@@ -16,7 +15,7 @@ async function fetchConfig() {
   }
 }
 
-// Initiera Firebase
+// Initiera Firebase och konfiguration
 function initializeFirebase() {
   firebase.initializeApp(firebaseConfig);
   auth = firebase.auth();
@@ -40,6 +39,10 @@ function initializeFirebase() {
       }
     }
   });
+
+  // Konfiguration av knappar **efter** att Firebase har initierats
+  setupLoginButton();
+  setupLogoutButton();
 }
 
 // Logga in med Google
@@ -148,8 +151,8 @@ async function voteOnSession(sessionId) {
 // Starta appen
 fetchConfig();
 
-// Konfiguration av knappar när DOM är laddat
+// Lägg till event listener för DOMContentLoaded för att säkerställa att knapparna finns
 document.addEventListener('DOMContentLoaded', () => {
-  setupLoginButton();
-  setupLogoutButton();
+  // Inget behov av att anropa setupLoginButton och setupLogoutButton här,
+  // eftersom de anropas i initializeFirebase
 });
