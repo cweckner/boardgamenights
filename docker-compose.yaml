@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app:z
+      - ./.env:/.env:z          # Monterar .env-filen
+      - ./configs:/configs:z    # Monterar configs-mappen
+    environment:
+      - ENV=local               # Tvingar lokal miljö
+      - PYTHONPATH=/app
+    user: "0"                   # Kör som root (för SELinux på Fedora)
+
+    restart: unless-stopped
+
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "5500:80"
+    volumes:
+      - ./frontend/docs:/usr/share/nginx/html:z
+    depends_on:
+      - backend
+    restart: unless-stopped
